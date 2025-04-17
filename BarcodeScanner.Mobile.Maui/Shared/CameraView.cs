@@ -189,5 +189,14 @@ namespace BarcodeScanner.Mobile
                 OnDetectedCommand?.Execute(new OnDetectedEventArg { OCRResult = ocrResult, BarcodeResults = barCodeResults, ImageData = imageData });
             });
         }
+
+        public void TriggerOnDetected(OCRResult ocrResult, DetectionResults detectedObjects, byte[] imageData)
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                OnDetected?.Invoke(this, new OnDetectedEventArg { OCRResult = ocrResult, DetectionResults = detectedObjects, ImageData = imageData });
+                OnDetectedCommand?.Execute(new OnDetectedEventArg { OCRResult = ocrResult, DetectionResults = detectedObjects, ImageData = imageData });
+            });
+        }
     }
 }

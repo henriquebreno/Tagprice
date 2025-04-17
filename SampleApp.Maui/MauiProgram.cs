@@ -1,5 +1,6 @@
 ﻿using BarcodeScanner.Mobile;
 using Microsoft.Maui.Controls.Compatibility.Hosting;
+using SkiaSharp.Views.Maui.Controls.Hosting;
 
 namespace SampleApp.Maui
 {
@@ -10,6 +11,7 @@ namespace SampleApp.Maui
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseSkiaSharp()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

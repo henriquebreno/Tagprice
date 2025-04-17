@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0-ios;net9.0-android</TargetFrameworks>
-		<RuntimeIdentifier Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">ios-arm64</RuntimeIdentifier>
-		<PlatformTarget>arm64</PlatformTarget>
+    <RuntimeIdentifiers Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">android-arm;android-arm64;android-x86;android-x64</RuntimeIdentifiers>
+    <PlatformTarget>arm64</PlatformTarget>
 
 		<MauiVersion>9.0.50</MauiVersion>
 		<OutputType>Exe</OutputType>
@@ -31,6 +31,15 @@
 
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
+	  <AndroidStoreUncompressedFileExtensions>tflite;lite</AndroidStoreUncompressedFileExtensions>
+	  <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
+	  <AndroidStoreUncompressedFileExtensions>tflite;lite</AndroidStoreUncompressedFileExtensions>
+	</PropertyGroup>
+
 	<ItemGroup>
 
 
@@ -54,12 +63,21 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="SkiaSharp.Views" Version="3.116.1" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.116.1" />
 		<PackageReference Include="Xamarin.AndroidX.Activity" Version="1.9.3.2" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
 		<PackageReference Include="Xamarin.AndroidX.Activity.Ktx" Version="1.9.3.2" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\BarcodeScanner.Mobile.Maui\BarcodeScanner.Mobile.Maui.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Mono.Android">
+	    <HintPath>..\..\..\..\..\..\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v13.0\Mono.Android.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -71,6 +89,16 @@
 		</Compile>
 	</ItemGroup>
 
+  <ItemGroup>
+    <AndroidAsset Update="Resources\Raw\yolo11n_float32.tflite">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Update="Resources\Raw\best_uint8.tflite">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AndroidAsset>
+  </ItemGroup>
 	<ItemGroup>
 
 		<MauiXaml Update="NestedPage\NestedPageDemo.xaml">

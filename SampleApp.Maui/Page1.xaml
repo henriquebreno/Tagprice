@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SampleApp.Maui.Page1"
              xmlns:gv="clr-namespace:BarcodeScanner.Mobile;assembly=BarcodeScanner.Mobile.Maui"
+                          xmlns:skia="clr-namespace:SkiaSharp.Views.Maui.Controls;assembly=SkiaSharp.Views.Maui.Controls"
+
              Title="Page1">
     <Grid>
         <Grid.RowDefinitions>
@@ -40,13 +42,17 @@
                        ScanInterval="50" x:Name="Camera"/>
 
         <!--IgnorePixelScaling: Make sure it is set to true. Ensures density is properly calculated-->
-        <!--<skia:SKCanvasView
+        <skia:SKCanvasView
                 x:Name="Canvas"
                 HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                 Grid.Row="1" BackgroundColor="Transparent"
                 PaintSurface="SKCanvasView_PaintSurface"
                 IgnorePixelScaling="True" 
-            />-->
+            />
+        <!--<skia:SKCanvasView x:Name="Canvas"
+                   PaintSurface="SKCanvasView_PaintSurface"
+                   BackgroundColor="Transparent"
+                   IgnorePixelScaling="True" />-->
 
         <!--Customized Size-->
         <!--<gv:CameraView HorizontalOptions="Center" WidthRequest="200" HeightRequest="200" OnDetected="CameraView_OnDetected" Grid.Row="1"/>-->

@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net9.0;net9.0-android;net9.0-ios;</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+    <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<UseMaui>true</UseMaui>
 		<MauiVersion>9.0.50</MauiVersion>
@@ -63,7 +63,15 @@
 		<PackageReference Include="AdamE.MLKit.iOS.BarcodeScanning" Version="6.0.0" />
 		<BundleResource Include="Platforms\iOS\PrivacyInfo.xcprivacy" LogicalName="PrivacyInfo.xcprivacy" />
 	</ItemGroup>
-	<ItemGroup>
+
+
+  <ItemGroup>
+    <AndroidNativeLibrary Include="Resources\Lib\armeabi-v7a\libimage_processing.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AndroidNativeLibrary>
+  </ItemGroup>
+
+  <ItemGroup>
 		<!-- We will compile anything ending in .shared.cs  You can change this -->
 		<PackageReference Include="Xamarin.Build.Download" Version="0.11.4" />
 	</ItemGroup>
@@ -88,4 +96,11 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 	</ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
+    <PackageReference Include="TensorFlow.Lite.Task.Vision">
+      <Version>0.4.4.1</Version>
+    </PackageReference>
+  </ItemGroup>   
+  
 </Project>

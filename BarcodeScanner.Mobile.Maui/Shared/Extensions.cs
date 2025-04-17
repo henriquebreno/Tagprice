@@ -24,6 +24,15 @@ namespace BarcodeScanner.Mobile
             _ => throw new ArgumentOutOfRangeException(nameof(CaptureQuality))
         };
 
+        
+        public static IntPtr GetDirectBufferAddress(Java.Nio.ByteBuffer buffer)
+        {
+            var method = Android.Runtime.JNIEnv.GetMethodID(buffer.Class.Handle, "getDirectBufferAddress", "()J");
+            var address =  Android.Runtime.JNIEnv.CallLongMethod(buffer.Handle, method);
+            return new IntPtr(address);
+        }
+       
+
 
         public static ResolutionStrategy GetTargetResolutionStrategy(this CaptureQuality quality)
         {
